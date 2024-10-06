@@ -2,8 +2,9 @@
 Multi-Stage Dockerfile
 This project uses a multi-stage Dockerfile to build and run a Java web application on a Tomcat server. The Dockerfile defines two stages: one for building the application using Maven, and another for deploying the application on Tomcat. By using a multi-stage build, we can optimize the size of the final image by excluding unnecessary build tools and dependencies from the runtime environment.
 
-#Dockerfile Breakdown
-#Stage 1: Build the Application
+# Dockerfile Breakdown
+
+# Stage 1: Build the Application
 
 FROM openjdk:8 AS BUILD_IMAGE:
 The first stage uses the openjdk:8 image, which includes the Java Development Kit (JDK) version 8. This is essential for compiling and building the Java application.
@@ -17,7 +18,7 @@ The source code for the application is cloned from a Git repository using the vp
 RUN cd vprofile-repo && mvn install:
 Maven is used to build the Java application and generate a vprofile-v2.war file in the target/ directory. This file is a Web Application Archive (WAR) that will be deployed in the next stage.
 
-#Stage 2: Deploy to Tomcat
+# Stage 2: Deploy to Tomcat
 
 FROM tomcat:8-jre11:
 The second stage uses the tomcat:8-jre11 image, which includes the Tomcat 8 application server with the Java Runtime Environment (JRE) 11. This environment is much lighter since we don't need build tools like Maven in the final runtime image.
@@ -34,7 +35,7 @@ Exposes port 8080, which is the default port that Tomcat listens to for incoming
 CMD ["catalina.sh", "run"]:
 This is the command that runs when the container starts. It starts the Tomcat server using the catalina.sh script, making the web application accessible via the exposed port.
 
-#Benefits of Multi-Stage Docker Build
+# Benefits of Multi-Stage Docker Build
 
 Smaller Final Image:
 Only the Tomcat server and the compiled .war file are included in the final image, which significantly reduces the image size by leaving out unnecessary build tools like Maven, Git, and the JDK.
