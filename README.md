@@ -12,7 +12,7 @@ The first stage uses the openjdk:8 image, which includes the Java Development Ki
 RUN apt update && apt install maven -y:
 Maven is required for building the Java project. This command updates the package manager and installs Maven inside the build environment.
 
-RUN git clone -b vp-docker https://github.com/vprofile-repo.git:
+RUN git clone command <-b vp-docker> <branch name> https://github.com/<vprofile-repo.git> <repo link>:
 The source code for the application is cloned from a Git repository using the vp-docker branch.
 
 RUN cd vprofile-repo && mvn install:
